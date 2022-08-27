@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.auto;
 import frc.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -57,7 +58,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   // public Command getAutonomousCommand() {
-  //   // An ExampleCommand will run in autonomous
-  //   return System.out.println("sup dudes");
+  // return 
   // }
 }
