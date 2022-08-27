@@ -41,7 +41,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void setRaw(double rightStick, double leftStick){
-    differentialDrive.arcadeDrive(-(leftStick), rightStick);
+    differentialDrive.arcadeDrive(leftStick, rightStick);
   };
 
   @Override
