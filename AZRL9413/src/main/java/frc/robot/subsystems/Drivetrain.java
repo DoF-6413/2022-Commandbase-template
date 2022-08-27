@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 
-public class DriveTrain extends SubsystemBase {
+public class Drivetrain extends SubsystemBase {
   // Declare types for motors (does not need values)
   private WPI_VictorSPX leftLead;
   private WPI_VictorSPX rightLead;
@@ -24,7 +24,7 @@ public class DriveTrain extends SubsystemBase {
 
 
   /** Creates a new DriveTrain. */
-  public DriveTrain() {
+  public Drivetrain() {
     leftLead = new WPI_VictorSPX(04);
     leftFollow = new WPI_VictorSPX(03);
 

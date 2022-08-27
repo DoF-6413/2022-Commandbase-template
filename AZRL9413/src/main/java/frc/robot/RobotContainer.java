@@ -8,9 +8,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.auto;
-import frc.robot.subsystems.DriveTrain;
-
+import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,10 +19,11 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
+
+
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_driveTrainSubsytem = new DriveTrain();
-
+  private final Drivetrain m_driveTrainSubsytem = new Drivetrain();
   public Joystick m_lefJoystick = new Joystick(0);
   public Joystick m_righJoystick = new Joystick(1);
 
@@ -57,7 +59,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  // return 
-  // }
-}
+ // public Command getAutonomousCommand() {
+  // return new RunCommand(()-> m_driveTrainSubsytem.setRaw(-.4,0), m_driveTrainSubsytem)
+  // .andThen(new WaitCommand(1)).
+  // andThen(new RunCommand(()-> m_driveTrainSubsytem.setRaw(0,0), m_driveTrainSubsytem));
+   }
+// }
