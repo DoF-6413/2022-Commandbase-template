@@ -7,8 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.auto;
-import frc.robot.subsystems.Drivetrain;
+// import frc.robot.commands.auto;
+// import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -23,12 +23,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Drivetrain m_driveTrainSubsytem = new Drivetrain();
-  public Joystick m_lefJoystick = new Joystick(0);
-  public Joystick m_righJoystick = new Joystick(1);
-
-  public Joystick lefJoystick;
-  public Joystick righJoystick;
 
 
 
@@ -46,11 +40,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    m_driveTrainSubsytem.setDefaultCommand(
-      new RunCommand(()-> m_driveTrainSubsytem.setRaw(m_righJoystick.getRawAxis(1), m_lefJoystick.getRawAxis(0)), m_driveTrainSubsytem)
-      
-
-    );  
+    
+    
 
   }
 
@@ -59,9 +50,5 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
- // public Command getAutonomousCommand() {
-  // return new RunCommand(()-> m_driveTrainSubsytem.setRaw(-.4,0), m_driveTrainSubsytem)
-  // .andThen(new WaitCommand(1)).
-  // andThen(new RunCommand(()-> m_driveTrainSubsytem.setRaw(0,0), m_driveTrainSubsytem));
+ // public Command getAutonomousCommand() {}
    }
-// }
