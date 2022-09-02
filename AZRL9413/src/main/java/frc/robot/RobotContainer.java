@@ -12,6 +12,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick.*;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Axis;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.Constants.*;
+import frc.robot.commands.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,31 +33,30 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveDriveSubsystem swerveSubsystem = new SwerveDriveSubsystem();
 
+  // private final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
   private final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
 
   public RobotContainer() {
-      swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
-              swerveSubsystem,
-              () -> -driverJoytick.getRawAxis(OIConstants.kDriverYAxis),
-              () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
-              () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
-              () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+    swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
+            swerveSubsystem,
+            () -> -driverJoytick.getRawAxis(OIConstants.kDriverYAxis),
+            () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
+            () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
+            () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
-      configureButtonBindings();
-  }
+    configureButtonBindings();
+}
 
+private void configureButtonBindings() {
+  new JoystickButton(driverJoytick, 2).whenPressed(() -> swerveSubsystem.zeroHeading());
+}
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-    
-    
-
-  }
-
+ 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
