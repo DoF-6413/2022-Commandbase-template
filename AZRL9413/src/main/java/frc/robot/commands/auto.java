@@ -15,6 +15,7 @@ public class auto extends CommandBase {
   public auto() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
+  // Juan and Irae were here
 
   // Called when the command is initially scheduled.
   @Override
