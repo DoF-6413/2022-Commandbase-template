@@ -11,7 +11,8 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.RobotController;
-
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
@@ -62,7 +63,21 @@ public class SwerveModule {
 
     resetEncoders();
   }
+  public double getDrivePosition() {
+    return driveEncoder.getPosition();
+}
 
+public double getTurningPosition() {
+    return turningEncoder.getPosition();
+}
+
+public double getDriveVelocity() {
+    return driveEncoder.getVelocity();
+}
+
+public double getTurningVelocity() {
+    return turningEncoder.getVelocity();
+}
   public double getAbsoluteEncoderRad() {
     double angle = absoluteEncoder.getVoltage() / RobotController.getVoltage5V();
     angle *= 2.0 * Math.PI;
@@ -74,5 +89,24 @@ public class SwerveModule {
   turningEncoder.setPosition(getAbsoluteEncoderRad());
   } 
  
+  public SwerveModuleState getState() {
+    return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getTurningPosition()));
+}
+
+public void setDesiredState(SwerveModuleState state) {
+    if (Math.abs(state.speedMetersPerSecond) < 0.001) {
+        stop();
+        return;
+    }
+    state = SwerveModuleState.optimize(state, getState().angle);
+    driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+    turningMotor.set(turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
+    SmartDashboard.putString("Swerve[" + absoluteEncoder.getChannel() + "] state", state.toString());
+}
+
+public void stop() {
+    driveMotor.set(0);
+    turningMotor.set(0);
+}
 
 }
