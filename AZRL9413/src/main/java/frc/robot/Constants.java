@@ -30,7 +30,7 @@ public final class Constants {
     }
     public static final class DriveConstants {
 
-        public static final double kTrackWidth = Units.inchesToMeters(21);
+        public static final double kTrackWidth = Units.inchesToMeters(27);
         // Distance between right and left wheels
         public static final double kWheelBase = Units.inchesToMeters(25.5);
         // Distance between front and back wheels
@@ -66,10 +66,10 @@ public final class Constants {
         //CHECK ABOVE
 
         //ABSOLUTE ENCODER INFO
-        public static final int kFrontLeftDriveAbsoluteEncoderPort = 0;
-        public static final int kBackLeftDriveAbsoluteEncoderPort = 2;
-        public static final int kFrontRightDriveAbsoluteEncoderPort = 1;
-        public static final int kBackRightDriveAbsoluteEncoderPort = 3;
+        public static final int kFrontLeftDriveAbsoluteEncoderPort = 9;
+        public static final int kBackLeftDriveAbsoluteEncoderPort = 10;
+        public static final int kFrontRightDriveAbsoluteEncoderPort = 11;
+        public static final int kBackRightDriveAbsoluteEncoderPort = 12;
 
         public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false;
         public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false;
