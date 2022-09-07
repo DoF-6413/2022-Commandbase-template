@@ -62,10 +62,10 @@ public class SwerveJoystickCmd extends CommandBase {
         if (fieldOrientedFunction.get()) {
             // Relative to field
             chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
-                    xSpeed*0.25, ySpeed*0.25, turningSpeed*0.25, swerveSubsystem.getRotation2d());
+                    xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
         } else {
             // Relative to robot
-            chassisSpeeds = new ChassisSpeeds(xSpeed*0.25, ySpeed*0.25, turningSpeed*0.25);
+            chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
         }
 
         // 5. Convert chassis speeds to individual module states
@@ -74,7 +74,7 @@ public class SwerveJoystickCmd extends CommandBase {
         // 6. Output each module states to wheels
         swerveSubsystem.setModuleStates(moduleStates);
     }
-
+ 
     @Override
     public void end(boolean interrupted) {
         swerveSubsystem.stopModules();
@@ -82,6 +82,6 @@ public class SwerveJoystickCmd extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return false ;
     }
 }
