@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Axis;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 
@@ -31,12 +32,13 @@ import frc.robot.commands.*;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final SwerveDriveSubsystem swerveSubsystem = new SwerveDriveSubsystem();
+  public final SwerveDriveSubsystem swerveSubsystem = new SwerveDriveSubsystem();
 
   // private final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
-  private final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
+  public final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
 
   public RobotContainer() {
+    //todo: multiply each joystick value by max speed
     swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
             swerveSubsystem,
             () -> -driverJoytick.getRawAxis(OIConstants.kDriverYAxis),
@@ -50,6 +52,8 @@ public class RobotContainer {
 private void configureButtonBindings() {
   new JoystickButton(driverJoytick, 2).whenPressed(() -> swerveSubsystem.zeroHeading());
 }
+
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link

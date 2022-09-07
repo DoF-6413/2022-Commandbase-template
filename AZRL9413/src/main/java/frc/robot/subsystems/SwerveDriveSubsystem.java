@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class SwerveDriveSubsystem extends SubsystemBase {
   /** Creates a new SwerveDriveSubsystem. */
   //Establishes specific Swerve Modules per Motor Mounting
-  private final SwerveModule frontLeft = new SwerveModule(
+  public final SwerveModule frontLeft = new SwerveModule(
     DriveConstants.kFrontLeftDriveMotorPort,
     DriveConstants.kFrontLeftTurningMotorPort,
     DriveConstants.kFrontLeftDriveEncoderReversed,
@@ -28,7 +28,7 @@ public class SwerveDriveSubsystem extends SubsystemBase {
     DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetRad,
     DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed);
 
-private final SwerveModule frontRight = new SwerveModule(
+public final SwerveModule frontRight = new SwerveModule(
     DriveConstants.kFrontRightDriveMotorPort,
     DriveConstants.kFrontRightTurningMotorPort,
     DriveConstants.kFrontRightDriveEncoderReversed,
@@ -37,7 +37,7 @@ private final SwerveModule frontRight = new SwerveModule(
     DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad,
     DriveConstants.kFrontRightDriveAbsoluteEncoderReversed);
 
-private final SwerveModule backLeft = new SwerveModule(
+public final SwerveModule backLeft = new SwerveModule(
     DriveConstants.kBackLeftDriveMotorPort,
     DriveConstants.kBackLeftTurningMotorPort,
     DriveConstants.kBackLeftDriveEncoderReversed,
@@ -46,7 +46,7 @@ private final SwerveModule backLeft = new SwerveModule(
     DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad,
     DriveConstants.kBackLeftDriveAbsoluteEncoderReversed);
 
-private final SwerveModule backRight = new SwerveModule(
+public final SwerveModule backRight = new SwerveModule(
     DriveConstants.kBackRightDriveMotorPort,
     DriveConstants.kBackRightTurningMotorPort,
     DriveConstants.kBackRightDriveEncoderReversed,
