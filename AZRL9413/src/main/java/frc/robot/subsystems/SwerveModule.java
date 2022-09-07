@@ -24,51 +24,54 @@ public class SwerveModule {
   //Module 1
   private final CANSparkMax driveMotor;
   private final CANSparkMax turningMotor;
-
+  
   private final RelativeEncoder driveEncoder;
   private final RelativeEncoder turningEncoder;
-
+  
   private final PIDController turningPidController;
-
+  
   private final CANCoder canCoder;
   private final boolean absoluteEncoderReversed;
   private final double absoluteEncoderOffsetRad;
-
+  
   public SwerveModule(int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed,
   int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed) {
-
+    
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
     canCoder = new CANCoder(absoluteEncoderId);
-
+    
     
     driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
     turningMotor = new CANSparkMax(turningMotorId, MotorType.kBrushless);
-
+    
     driveMotor.setInverted(driveMotorReversed);
     turningMotor.setInverted(turningMotorReversed);
-
+    
     driveEncoder = driveMotor.getEncoder();
     turningEncoder = turningMotor.getEncoder();
-
+    
     driveEncoder.setPositionConversionFactor(ModuleConstants.kDriveEncoderRot2Meter);
     driveEncoder.setVelocityConversionFactor(ModuleConstants.kDriveEncoderRPM2MeterPerSec);
     turningEncoder.setPositionConversionFactor(ModuleConstants.kTurningEncoderRot2Rad);
     turningEncoder.setVelocityConversionFactor(ModuleConstants.kTurningEncoderRPM2RadPerSec);
-
+    
     turningPidController = new PIDController(ModuleConstants.kPTurning, 0, 0);
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
-
+    
     resetEncoders();
   }
+  
+
+   
   public double getDrivePosition() {
     return driveEncoder.getPosition();
-}
-
-public double getTurningPosition() {
+  }
+  
+  public double getTurningPosition() {
     return turningEncoder.getPosition();
-}
-
+  }
+  
 public double getDriveVelocity() {
     return driveEncoder.getVelocity();
 }
@@ -93,8 +96,8 @@ public double getTurningVelocity() {
 
 public void setDesiredState(SwerveModuleState state) {
     if (Math.abs(state.speedMetersPerSecond) < 0.001) {
-        stop();
-        return;
+      stop();
+      return;
     }
     state = SwerveModuleState.optimize(state, getState().angle);
     driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
@@ -106,5 +109,4 @@ public void stop() {
     driveMotor.set(0);
     turningMotor.set(0);
 }
-
 }
