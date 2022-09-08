@@ -14,4 +14,5 @@ package frc.robot;
  */
 public final class Constants {
     public String Juan = "bestProgrammerEver";
+    public String Nancy = "2ndbestProgrammerEver";
 }
