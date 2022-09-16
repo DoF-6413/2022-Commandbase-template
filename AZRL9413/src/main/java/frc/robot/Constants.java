@@ -26,7 +26,7 @@ public final class Constants {
         public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
         public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
         //PID TUNING 
-        public static final double kPTurning = 0.5;
+        public static final double kPTurning = 0;
     }
 
     // TODO: update contants
@@ -78,7 +78,7 @@ public final class Constants {
         public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
         public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 0;
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 2;
         public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 0;
         public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0;
         public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 0;

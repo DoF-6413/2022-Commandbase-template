@@ -8,6 +8,7 @@ import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants.*;
@@ -40,15 +41,19 @@ public class SwerveModule {
 
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
+    
     canCoder = new CANCoder(absoluteEncoderId);
-
+    canCoder.setPositionToAbsolute();
     canCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
     
     driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
     turningMotor = new CANSparkMax(turningMotorId, MotorType.kBrushless);
 
+    
     driveMotor.setInverted(driveMotorReversed);
     turningMotor.setInverted(turningMotorReversed);
+
+
 
     driveEncoder = driveMotor.getEncoder();
     turningEncoder = turningMotor.getEncoder();
@@ -60,7 +65,7 @@ public class SwerveModule {
 
     turningPidController = new PIDController(ModuleConstants.kPTurning, 0, 0);
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
-
+turningPidController.setTolerance(500);
     resetEncoders();
   }
   public double getDrivePosition() {
@@ -78,11 +83,11 @@ public double getDriveVelocity() {
 public double getTurningVelocity() {
     return turningEncoder.getVelocity();
 }
-  public double getAbsoluteEncoderRad() {
-    double angle = canCoder.;
-    angle *= 2.0 * Math.PI;
+  public double getAbsoluteEncoderRad() { 
+    double angle = canCoder.getAbsolutePosition();
+    angle *= (Math.PI/180);
     angle -= absoluteEncoderOffsetRad;
-    SmartDashboard.putNumber("absolute encoder", angle);
+//   printStatus();
     return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
 }
   public void resetEncoders() {
@@ -92,6 +97,19 @@ public double getTurningVelocity() {
  
   public SwerveModuleState getState() {
     return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getTurningPosition()));
+}
+
+public void printStatus(){
+    SmartDashboard.putNumber("1", canCoder.getBusVoltage() );
+    SmartDashboard.putNumber("2", canCoder.getLastTimestamp() );
+    SmartDashboard.putNumber("3", canCoder.getVelocity() );
+    // SmartDashboard.putNumber("4", canCoder.configGetCustomParam(0) );
+    SmartDashboard.putNumber("5", canCoder.getDeviceID() );
+    SmartDashboard.putString("6", canCoder.configGetAbsoluteSensorRange().toString() );
+    SmartDashboard.putBoolean("7", canCoder.configGetSensorDirection() );
+    SmartDashboard.putNumber("8", canCoder.getAbsolutePosition() );
+    SmartDashboard.putString("9", canCoder.getLastError().toString());
+    SmartDashboard.putNumber("10", this.getAbsoluteEncoderRad());
 }
 
 public void setDesiredState(SwerveModuleState state) {
