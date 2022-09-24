@@ -62,9 +62,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
           new Translation2d(-DRIVETRAIN_TRACKWIDTH_METERS / 2.0, -DRIVETRAIN_WHEELBASE_METERS / 2.0)
   );
 
- 
-
- private final AHRS m_navx = new AHRS(SPI.Port.kMXP); // NavX connected over MXP
+ public final AHRS m_navx = new AHRS(SPI.Port.kMXP); // NavX connected over MXP
 
   // These are our modules. We initialize them in the constructor.
   private final SwerveModule m_frontLeftModule;
@@ -185,7 +183,7 @@ return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
     m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[1].angle.getRadians());
     m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
     m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
-    SmartDashboard.putNumber("Gyro Angle", m_navx.getAngle());
+
   }
   
 }

@@ -7,6 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -18,7 +22,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-
+  public final AHRS m_navx = new AHRS(SPI.Port.kMXP);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -81,7 +85,14 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    SmartDashboard.putNumber("Gyro Angle", m_navx.getAngle());
+    SmartDashboard.putBoolean(  "IMU_Connected",        m_navx.isConnected());
+    SmartDashboard.putBoolean(  "IMU_IsCalibrating",    m_navx.isCalibrating());
+    SmartDashboard.putNumber(   "IMU_Yaw",              m_navx.getYaw());
+    SmartDashboard.putNumber(   "IMU_Pitch",            m_navx.getPitch());
+    SmartDashboard.putNumber(   "IMU_Roll",             m_navx.getRoll());
+  }
 
   @Override
   public void testInit() {
