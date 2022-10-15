@@ -66,6 +66,12 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
+      m_drivetrainSubsystem,
+      () -> -modifyAxis(0) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+      () -> -modifyAxis(1) * 10,
+      () -> -modifyAxis(0) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+));
     // An ExampleCommand will run in autonomous
     return new InstantCommand();
   }
