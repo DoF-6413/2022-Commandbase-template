@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
@@ -25,8 +26,10 @@ public class NancysSuperFancyAutonomousCommand extends CommandBase {
         addRequirements(drivetrainSubsystem);
     }
 
+    
     @Override
     public void execute() {
+
         // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
         m_drivetrainSubsystem.drive(
             //non-gyro drive (working)
@@ -42,11 +45,20 @@ public class NancysSuperFancyAutonomousCommand extends CommandBase {
                         m_rotationSupplier.getAsDouble(),
                         m_drivetrainSubsystem.getGyroscopeRotation()
                         ));
-                
+                    
+                        SmartDashboard.putNumber("X Value", m_drivetrainSubsystem.readNavxX());
+                        SmartDashboard.putNumber("Y Value", m_drivetrainSubsystem.readNavxY());
     }
 
     @Override
     public void end(boolean interrupted) {
         m_drivetrainSubsystem.drive(new ChassisSpeeds(0.0, 0.0, 0.0));
     }
+
+      // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return m_drivetrainSubsystem.readNavxY() < -0.62;
+  }
 }
+
