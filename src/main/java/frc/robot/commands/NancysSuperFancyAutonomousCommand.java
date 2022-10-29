@@ -45,15 +45,12 @@ public class NancysSuperFancyAutonomousCommand extends CommandBase {
                         m_rotationSupplier.getAsDouble(),
                         m_drivetrainSubsystem.getGyroscopeRotation()
                         ));
-                    
-                        SmartDashboard.putNumber("X Value", m_drivetrainSubsystem.readNavxX());
-                        SmartDashboard.putNumber("Y Value", m_drivetrainSubsystem.readNavxY());
     }
 
     @Override
     public void end(boolean interrupted) {
-        m_drivetrainSubsystem.drive(new ChassisSpeeds(0.0, 0.0, 0.0));
-    }
+ m_drivetrainSubsystem.drive(ChassisSpeeds.fromFieldRelativeSpeeds(0.0, 0.0, 0.0, m_drivetrainSubsystem.getGyroscopeRotation() ));
+    }    }
 
       // Returns true when the command should end.
   @Override

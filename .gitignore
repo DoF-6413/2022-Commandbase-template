@@ -139,6 +139,9 @@ $RECYCLE.BIN/
 .gradle
 /build/
 
+## AZRL directory ##
+AZRL9413/
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
