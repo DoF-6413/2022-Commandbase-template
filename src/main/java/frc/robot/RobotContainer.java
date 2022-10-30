@@ -26,6 +26,11 @@ public class RobotContainer {
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
 
   private final XboxController m_controller = new XboxController(0);
+private final Command m_swerveAuto = new NancysSuperFancyAutonomousCommand(
+   m_drivetrainSubsystem,
+() -> -modifyAxis(.5) * 1,
+() -> -modifyAxis(0) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+() -> -modifyAxis(0) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -67,14 +72,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    m_drivetrainSubsystem.setDefaultCommand(new NancysSuperFancyAutonomousCommand(
-      m_drivetrainSubsystem,
-      () -> -modifyAxis(.5) * 1,
-      () -> -modifyAxis(0) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-      () -> -modifyAxis(0) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
-));
-    // An ExampleCommand will run in autonomous
-    return new InstantCommand();
+   return m_swerveAuto;
   }
 
   private static double deadband(double value, double deadband) {

@@ -168,6 +168,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
    m_navx.reset();
   }
 
+  public void resetGyroscopeXY(){
+          m_navx.resetDisplacement();
+  }
+
   public Rotation2d getGyroscopeRotation() {
  
 
@@ -199,5 +203,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber(   "IMU_Pitch",              m_navx.getPitch());
     SmartDashboard.putNumber(   "IMU_Roll",              m_navx.getRoll());
   }
+
+public double readNavxY() {
+        return m_navx.getDisplacementY();
+}
   
 }
