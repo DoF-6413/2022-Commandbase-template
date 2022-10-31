@@ -9,12 +9,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.NancysSuperFancyAutonomousCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
-
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.*;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -24,7 +25,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-
+ private final Climber m_climber = new Climber();
   private final XboxController m_controller = new XboxController(0);
 private final Command m_swerveAuto = new NancysSuperFancyAutonomousCommand(
    m_drivetrainSubsystem,
@@ -53,6 +54,7 @@ private final Command m_swerveAuto = new NancysSuperFancyAutonomousCommand(
     configureButtonBindings();
   }
 
+  
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -64,6 +66,7 @@ private final Command m_swerveAuto = new NancysSuperFancyAutonomousCommand(
     new Button(m_controller::getBackButton)
             // No requirements because we don't need to interrupt anything
             .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
+    new JoystickButton(m_controller, XboxController.Button.kA.value).whenPressed(new RunCommand(() -> m_climber.goUp(), m_climber));
   }
 
   /**
