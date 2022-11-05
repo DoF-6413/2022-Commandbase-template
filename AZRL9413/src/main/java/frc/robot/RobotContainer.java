@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.auto;
+import frc.robot.commands.minnieAuto;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -30,7 +30,7 @@ public class RobotContainer {
   public Joystick lefJoystick;
   public Joystick righJoystick;
 
-
+  // private final Command m_minnieAuto = new minnieAuto();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -59,9 +59,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
- // public Command getAutonomousCommand() {
-  // return new RunCommand(()-> m_driveTrainSubsytem.setRaw(-.4,0), m_driveTrainSubsytem)
-  // .andThen(new WaitCommand(1)).
-  // andThen(new RunCommand(()-> m_driveTrainSubsytem.setRaw(0,0), m_driveTrainSubsytem));
-   }
-// }
+//  public Command getAutonomousCommand() {
+//   return m_minnieAuto;
+//    }
+}
