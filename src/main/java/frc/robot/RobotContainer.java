@@ -66,7 +66,13 @@ private final Command m_swerveAuto = new NancysSuperFancyAutonomousCommand(
     new Button(m_controller::getBackButton)
             // No requirements because we don't need to interrupt anything
             .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
-    new JoystickButton(m_controller, XboxController.Button.kA.value).whenPressed(new RunCommand(() -> m_climber.goUp(), m_climber));
+    new JoystickButton(m_controller, XboxController.Button.kA.value).
+    whenPressed(new RunCommand(() -> m_climber.goUp(), m_climber)).
+    whenReleased(new RunCommand(() -> m_climber.stop(), m_climber));
+    
+    new JoystickButton(m_controller, XboxController.Button.kB.value).
+    whenPressed(new RunCommand(() -> m_climber.goDown(), m_climber)).
+    whenReleased(new RunCommand(() -> m_climber.stop(), m_climber));
   }
 
   /**
