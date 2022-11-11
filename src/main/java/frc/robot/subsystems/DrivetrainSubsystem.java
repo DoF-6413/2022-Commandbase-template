@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.ADIS16448_IMU.IMUAxis;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 // import edu.wpi.first.wpilibj.I2C.Port;
 import frc.robot.com.swervedrivespecialties.swervelib.Mk4iSwerveModuleHelper;
-import frc.robot.com.swervedrivespecialties.swervelib.Mk4iSwerveModuleHelper;
 import frc.robot.com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import frc.robot.com.swervedrivespecialties.swervelib.SwerveModule;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -25,6 +24,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.CANSparkMax; 
+
 
 import static frc.robot.Constants.*;
 
@@ -36,7 +37,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * This can be reduced to cap the robot's maximum speed. Typically, this is useful during initial testing of the robot.
    */
   public static final double MAX_VOLTAGE = 15.0;
-  // TODO: Measure the drivetrain's maximum velocity or calculate the theoretical.
+  // TOyDO: Measure the drivetrain's maximum velocity or calculate the theoretical.
   //  The formula for calculating the theoretical maximum velocity is:
   //   <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> * pi
   //  By default this value is setup for a Mk4i standard module using Falcon500s to drive.
@@ -80,30 +81,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
   
   private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
+
+
   public DrivetrainSubsystem() {
           ShuffleboardTab driveTab = Shuffleboard.getTab("Drivetrain");
           m_navx = new AHRS(SPI.Port.kMXP);
-          
-          // There are 4 methods you can call to create your swerve modules.
-    // The method you use depends on what motors you are+- using.
-    //
-    // Mk4iSwerveModuleHelper.createFalcon500(...)
-    //   Your module has two Falcon 500s on it. One for steering and one for driving.
-    //
-    // Mk4iSwerveModuleHelper.createNeo(...)
-    //   Your module has two NEOs on it. One for steering and one for driving.
-    //
-    // Mk4iSwerveModuleHelper.createFalcon500Neo(...)
-    //   Your module has a Falcon 500 and a NEO on it. The Falcon 500 is for driving and the NEO is for steering.
-    //
-    // Mk4iSwerveModuleHelper.createNeoFalcon500(...)
-    //   Your module has a NEO and a Falcon 500 on it. The NEO is for driving and the Falcon 500 is for steering.
-    //
-    // Similar helpers also exist for Mk4 modules using the Mk4SwerveModuleHelper class.
-
-    // By default we will use Falcon 500s in standard configuration. But if you use a different configuration or motors
-    // you MUST change it. If you do not, your code will crash on startup.
-    // FIXME Setup motor configuration
+        
     m_frontLeftModule = Mk4iSwerveModuleHelper.createNeo(
             // This parameter is optional, but will allow you to see the current state of the module on the dashboard.
             driveTab.getLayout("Front Left Module", BuiltInLayouts.kList)
@@ -157,6 +140,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     m_navx.calibrate();
 
+    
+
   }
 
   /**
@@ -173,12 +158,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public Rotation2d getGyroscopeRotation() {
- 
-
-//    if (m_navx.()) {
-     // We will only get valid fused headings if the magnetometer is calibrated
-    // return Rotation2d.fromDegrees(m_navx.getAngle());
-//    }
 
 // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
  return Rotation2d.fromDegrees(360.0 - m_navx.getAngle());
@@ -198,14 +177,26 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
     m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
 
+
+    
+
+
     SmartDashboard.putNumber(   "IMU_Angle",              m_navx.getAngle());
     SmartDashboard.putNumber(   "IMU_Yaw",              m_navx.getYaw());
     SmartDashboard.putNumber(   "IMU_Pitch",              m_navx.getPitch());
     SmartDashboard.putNumber(   "IMU_Roll",              m_navx.getRoll());
   }
 
-public double readNavxY() {
-        return m_navx.getDisplacementY();
+public double readNavxX() {
+        return m_navx.getDisplacementX();
 }
-  
+public double readNavxY() {
+        return m_navx.getDisplacementY();   
+}
+
+//function that returns the encoder value of Front left canspark
+public double readFLEncoderValue() {
+        SmartDashboard.putNumber("FL Encoder Value", m_frontLeftModule.getDrivePosition());
+        return m_frontLeftModule.getDrivePosition();
+}
 }

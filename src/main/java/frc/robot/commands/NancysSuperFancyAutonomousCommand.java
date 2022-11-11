@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 import java.util.function.DoubleSupplier;
@@ -28,10 +29,13 @@ public class NancysSuperFancyAutonomousCommand extends CommandBase {
 @Override 
 public void initialize() {
   m_drivetrainSubsystem.resetGyroscopeXY();
+  m_drivetrainSubsystem.zeroGyroscope();
 }
     
     @Override
     public void execute() {
+      SmartDashboard.putNumber("gyro x", m_drivetrainSubsystem.readNavxX());
+      SmartDashboard.putNumber("gyro y", m_drivetrainSubsystem.readNavxY());
 
         // You can use `new ChassisSpeeds(...)` for robot-oriented movement instead of field-oriented movement
         m_drivetrainSubsystem.drive(
@@ -58,7 +62,9 @@ public void initialize() {
       // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_drivetrainSubsystem.readNavxY() < -0.62;
+    //logic to this is finishe that Returns true if CanSpark value is grater than X
+    return m_drivetrainSubsystem.readFLEncoderValue() >= 5;
+    
   }
 }
 

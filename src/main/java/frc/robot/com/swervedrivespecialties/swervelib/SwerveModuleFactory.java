@@ -1,5 +1,7 @@
 package frc.robot.com.swervedrivespecialties.swervelib;
 
+import javax.naming.spi.DirObjectFactory;
+
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 
@@ -50,6 +52,10 @@ public class SwerveModuleFactory<DriveConfiguration, SteerConfiguration> {
         @Override
         public double getDriveVelocity() {
             return driveController.getStateVelocity();
+        }
+
+        public double getDrivePosition(){
+            return driveController.getStatePosition();
         }
 
         @Override

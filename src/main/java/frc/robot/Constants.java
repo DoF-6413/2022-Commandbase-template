@@ -19,6 +19,7 @@ public final class Constants {
      * Should be measured from center to center.
      */
     public static final double DRIVETRAIN_TRACKWIDTH_METERS = Units.inchesToMeters(22.75);
+    public static final double k_autoDistance = -0.3;
     /**
      * The front-to-back distance between the drivetrain wheels.
      *
