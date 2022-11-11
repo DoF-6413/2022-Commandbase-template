@@ -63,7 +63,8 @@ public void initialize() {
   @Override
   public boolean isFinished() {
     //logic to this is finishe that Returns true if CanSpark value is grater than X
-    return m_drivetrainSubsystem.readFLEncoderValue() >= 5;
+    SmartDashboard.putBoolean("FL Encoder Value Boolean", m_drivetrainSubsystem.readFLEncoderValue() <= (-2));
+    return m_drivetrainSubsystem.readFLEncoderValue() <= (-2);
     
   }
 }

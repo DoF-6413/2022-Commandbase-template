@@ -180,7 +180,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     
 
-
+    SmartDashboard.putNumber("FL Encoder Value", m_frontLeftModule.getDrivePosition());
     SmartDashboard.putNumber(   "IMU_Angle",              m_navx.getAngle());
     SmartDashboard.putNumber(   "IMU_Yaw",              m_navx.getYaw());
     SmartDashboard.putNumber(   "IMU_Pitch",              m_navx.getPitch());
@@ -196,7 +196,7 @@ public double readNavxY() {
 
 //function that returns the encoder value of Front left canspark
 public double readFLEncoderValue() {
-        SmartDashboard.putNumber("FL Encoder Value", m_frontLeftModule.getDrivePosition());
+        
         return m_frontLeftModule.getDrivePosition();
 }
 }
