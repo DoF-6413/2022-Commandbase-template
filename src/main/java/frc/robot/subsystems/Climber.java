@@ -19,28 +19,28 @@ public class Climber extends SubsystemBase {
 
   public void goUp() {
     //climberMotor.set(TalonFXControlMode.PercentOutput, 0.50); // runs the motor at 0% power
-    if (Position >= 40){
-      climberMotor.set(TalonFXControlMode.PercentOutput, 0);
-    }
-    else {
+    // if (Position >= 40){
+    //   climberMotor.set(TalonFXControlMode.PercentOutput, 0);
+    // }
+    // else {
       climberMotor.set(TalonFXControlMode.PercentOutput, 0.80);
-    }
+    // }
     climberPosition();
   }
 
   public void goDown() {
     //climberMotor.set(TalonFXControlMode.PercentOutput, -0.5); // runs the motor at 0% power
-    if (Position <= 0){
-      climberMotor.set(TalonFXControlMode.PercentOutput, 0);
-    }
-    else {
+    // if (Position <= 0){
+    //   climberMotor.set(TalonFXControlMode.PercentOutput, 0);
+    // }
+    // else {
       climberMotor.set(TalonFXControlMode.PercentOutput, -0.50);
-    }
+    // }
     climberPosition();
   }
 
   public void stop() {
-    //climberMotor.set(TalonFXControlMode.PercentOutput, 0); // runs the motor at 0% power
+    climberMotor.set(TalonFXControlMode.PercentOutput, 0); // runs the motor at 0% power
     climberPosition();
   }
 
